@@ -24,4 +24,5 @@ sensor:
   - platform: c6_adc
     name: adc5
     pin: GPIO5
+    attenuation: 0dB  # optional.  defaults to 12dB
 ```

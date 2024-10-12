@@ -45,9 +45,9 @@ CONFIG_SCHEMA = cv.All(
     .extend(
         {
             cv.Required(CONF_PIN): validate_adc_pin,
-            cv.Optional(CONF_ATTENUATION): cv.All()
+            cv.Optional(CONF_ATTENUATION): cv.enum(ATTENUATION_MODES, lower=True)
         })
-    .extend(cv.polling_component_schema("5s")),
+    .extend(cv.polling_component_schema("60s")),
 )
 
 async def to_code(config):
