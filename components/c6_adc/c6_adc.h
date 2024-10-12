@@ -1,5 +1,6 @@
 #pragma once
 #include "esphome/components/sensor/sensor.h"
+#include "esphome/components/voltage_sampler/voltage_sampler.h"
 #include "esphome/core/component.h"
 
 #include "esp_adc/adc_oneshot.h"
@@ -8,13 +9,14 @@
 namespace esphome {
 namespace c6_adc {
 
-class C6ADCSensor : public sensor::Sensor, public PollingComponent
+class C6ADCSensor : public sensor::Sensor, public PollingComponent, public voltage_sampler::VoltageSampler
 {
 public:
   /// Update ADC values
   void update() override;
   /// Setup ADC
   void setup() override;
+  float sample() override;
   void set_channel(adc_channel_t channel) {
     this->channel_ = channel;
   }

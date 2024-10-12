@@ -1,7 +1,7 @@
 import esphome.codegen as cg
 import esphome.config_validation as cv
 from esphome import pins
-from esphome.components import sensor
+from esphome.components import sensor, voltage_sampler
 from esphome.const import UNIT_VOLT, DEVICE_CLASS_VOLTAGE, STATE_CLASS_MEASUREMENT
 from esphome.const import CONF_NUMBER, CONF_PIN, CONF_ATTENUATION, CONF_ID
 
@@ -32,7 +32,7 @@ def validate_adc_pin(value):
 
 c6_adc_ns = cg.esphome_ns.namespace("c6_adc")
 
-C6ADCSensor = c6_adc_ns.class_("C6ADCSensor", sensor.Sensor, cg.PollingComponent)
+C6ADCSensor = c6_adc_ns.class_("C6ADCSensor", sensor.Sensor, cg.PollingComponent, voltage_sampler.VoltageSampler)
 
 CONFIG_SCHEMA = cv.All(
     sensor.sensor_schema(

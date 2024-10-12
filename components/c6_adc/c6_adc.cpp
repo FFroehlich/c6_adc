@@ -54,17 +54,20 @@ void C6ADCSensor::setup() {
     ready_ = true;
 }
 void C6ADCSensor::update() {
+    this->publish_state(sample());
+}
+float C6ADCSensor::sample() {
     esp_err_t err;
     int adc_read;
     if (! ready_) {
-        return;
+        return 0.0;
     }
     err = adc_oneshot_get_calibrated_result(adc_handle, cali_handle, channel_, &adc_read);
     if (err != ESP_OK) {
-        ESP_LOGV(TAG, "Failed to read adc for channel %d: %d", channel_, err);
-        return;
+        ESP_LOGE(TAG, "Failed to read adc for channel %d: %d", channel_, err);
+        return 0.0;
     }
-    this->publish_state(adc_read / 1000.0);
+    return adc_read / 1000.0;
 }
 
 }
