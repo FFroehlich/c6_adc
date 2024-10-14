@@ -30,6 +30,8 @@ def validate_adc_pin(value):
         raise cv.Invalid(f"Pin {value} is invalid for ADC")
     return conf
 
+AUTO_LOAD = ["voltage_sampler"]
+
 c6_adc_ns = cg.esphome_ns.namespace("c6_adc")
 
 C6ADCSensor = c6_adc_ns.class_("C6ADCSensor", sensor.Sensor, cg.PollingComponent, voltage_sampler.VoltageSampler)
