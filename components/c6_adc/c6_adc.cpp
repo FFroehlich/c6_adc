@@ -63,13 +63,13 @@ float C6ADCSensor::sample() {
         return 0.0;
     }
     int raw_read;
-    adc_oneshot_read(adc_handle, channel_, &raw_read);
-    ESP_LOGI(TAG, "Raw ADC: %d Calibrated: %d", raw_read, adc_read);
     err = adc_oneshot_get_calibrated_result(adc_handle, cali_handle, channel_, &adc_read);
     if (err != ESP_OK) {
         ESP_LOGE(TAG, "Failed to read adc for channel %d: %d", channel_, err);
         return 0.0;
     }
+    adc_oneshot_read(adc_handle, channel_, &raw_read);
+    ESP_LOGI(TAG, "Raw ADC: %d Calibrated: %d", raw_read, adc_read);
     return adc_read / 1000.0;
 }
 
