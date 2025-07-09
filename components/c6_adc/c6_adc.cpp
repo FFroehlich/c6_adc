@@ -70,7 +70,7 @@ float C6ADCSensor::sample() {
     }
     adc_oneshot_read(adc_handle, channel_, &raw_read);
     ESP_LOGI(TAG, "Raw ADC: %d Calibrated: %d", raw_read, adc_read);
-    return adc_read / 1000.0;
+    return raw_read / 1000.0;
 }
 
 }
